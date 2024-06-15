@@ -13,7 +13,8 @@ class WeatherController extends Controller
         $lon = '10.99'; // contoh longitude
         $apiKey = 'b0a5d152b99da8f75e139c8a7de577ae';
 
-        $response = Http::get("https://api.openweathermap.org/data/2.5/weather", [
+        // Mengambil data cuaca saat ini
+        $weatherResponse = Http::get("https://api.openweathermap.org/data/2.5/weather", [
             'lat' => $lat,
             'lon' => $lon,
             'appid' => $apiKey,
@@ -21,8 +22,25 @@ class WeatherController extends Controller
             'lang' => 'id'
         ]);
 
-        $weatherData = $response->json();
+        $weatherData = $weatherResponse->json();
 
-        return view('weather', ['weather' => $weatherData]);
+        // Mengambil data prakiraan cuaca 5 hari
+        $forecastResponse = Http::get("https://api.openweathermap.org/data/2.5/forecast", [
+            'lat' => $lat,
+            'lon' => $lon,
+            'appid' => $apiKey,
+            'units' => 'metric',
+            'lang' => 'id'
+        ]);
+
+        $forecastData = $forecastResponse->json();
+
+        return view('weather', [
+            'weather' => $weatherData,
+            'forecast' => $forecastData,
+            'apiKey' => $apiKey,
+            'lat' => $lat, // Menambahkan variabel $lat
+            'lon' => $lon  // Menambahkan variabel $lon
+        ]);
     }
 }
