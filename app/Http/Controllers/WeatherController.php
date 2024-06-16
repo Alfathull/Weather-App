@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class WeatherController extends Controller
 {
     public function index()
     {
-        $lat = '44.34'; // contoh latitude
-        $lon = '10.99'; // contoh longitude
+        $lat = -6.9175; // Latitude for Bandung
+        $lon = 107.6191; // Longitude for Bandung
+        // $lat = -33.8688; // Latitude for Sydney
+        // $lon = 151.2093; // Longitude for Sydney
         $apiKey = 'b0a5d152b99da8f75e139c8a7de577ae';
 
         // Mengambil data cuaca saat ini
@@ -35,12 +38,18 @@ class WeatherController extends Controller
 
         $forecastData = $forecastResponse->json();
 
+        // Menghitung waktu saat ini berdasarkan timezone offset yang dikembalikan oleh API
+        $timezoneOffset = $weatherData['timezone'];
+        $currentDateTime = Carbon::now()->utc()->addSeconds($timezoneOffset);
+
         return view('weather', [
             'weather' => $weatherData,
             'forecast' => $forecastData,
             'apiKey' => $apiKey,
+            'timezone' => $weatherData['timezone'],
             'lat' => $lat, // Menambahkan variabel $lat
-            'lon' => $lon  // Menambahkan variabel $lon
+            'lon' => $lon, // Menambahkan variabel $lon
+            'currentDateTime' => $currentDateTime // Menambahkan variabel waktu saat ini
         ]);
     }
 }
