@@ -41,22 +41,22 @@
             </div>
             <p class="text-lg text-bold p-2">{{ ucfirst($weather['weather'][0]['description']) }}</p>
             <div class="grid grid-cols-2 gap-1 text-slate-400">
-              <div class="text-md bg-slate-600  rounded-2xl shadow-2xl py-2 px-4">Terasa Seperti
+              <div class="text-md bg-slate-600 hover:bg-gray-600 rounded-2xl shadow-2xl py-2 px-4">Terasa Seperti
                 <p class="text-white text-bold text-xl">{{ $weather['main']['feels_like'] }}°</p>
               </div>
-              <div class="text-md bg-slate-600 rounded-2xl shadow-2xl py-2 px-4">Kelembaban
+              <div class="text-md bg-slate-600 hover:bg-gray-600 rounded-2xl shadow-2xl py-2 px-4">Kelembaban
                 <p class="text-white text-bold text-xl">{{ $weather['main']['humidity'] }} %</p>
               </div>
-              <div class="text-md bg-slate-600 rounded-2xl shadow-2xl py-2 px-4">Tekanan 
+              <div class="text-md bg-slate-600 hover:bg-gray-600 rounded-2xl shadow-2xl py-2 px-4">Tekanan 
                 <p class="text-white text-bold text-xl">{{ $weather['main']['pressure'] }} hPa</p>
               </div>
-              <div class="text-md bg-slate-600 rounded-2xl shadow-2xl py-2 px-4">Angin
+              <div class="text-md bg-slate-600 hover:bg-gray-600 rounded-2xl shadow-2xl py-2 px-4">Angin
                 <p class="text-white text-bold text-xl">{{ $weather['wind']['speed'] }} m/s</p>
               </div>
-              <div class="text-md bg-slate-600 rounded-2xl shadow-2xl py-2 px-4">Arah:
+              <div class="text-md bg-slate-600 hover:bg-gray-600 rounded-2xl shadow-2xl py-2 px-4">Arah:
                 <p class="text-white text-bold text-xl">{{ $weather['wind']['deg'] }}°</p>
               </div>
-              <div class="text-md bg-slate-600 rounded-2xl shadow-2xl py-2 px-4">Awan:
+              <div class="text-md bg-slate-600 hover:bg-gray-600 rounded-2xl shadow-2xl py-2 px-4">Awan:
                 <p class="text-white text-bold text-xl">{{ $weather['clouds']['all'] }}%</p>
               </div>
             </div>
@@ -91,9 +91,9 @@
                         $formattedDate = $day . ', ' . date('d', strtotime($weather['dt_txt'])) . ' ' . $month . ' ' . date('Y', strtotime($weather['dt_txt']));
                     @endphp
                     @if($time == '12:00' && !in_array($date, $dates))
-                        <div class="px-4 py-2 bg-slate-600 rounded shadow grid grid-cols-4">
+                        <div class="group px-4 py-2 bg-slate-600 rounded shadow grid grid-cols-4 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 hover:bg-gray-600 duration-300">
                             <p class="text-lg font-semibold text-center my-auto">{{ $day }}</p>
-                            <img src="http://openweathermap.org/img/wn/{{ $weather['weather'][0]['icon'] }}.png" alt="{{ $weather['weather'][0]['description'] }}" class="mx-auto">
+                            <img src="http://openweathermap.org/img/wn/{{ $weather['weather'][0]['icon'] }}.png" alt="{{ $weather['weather'][0]['description'] }}" class="mx-auto group-hover:animate-bounce">
                             <p class="text-lg text-center my-auto">{{ $weather['main']['temp'] }}°</p>
                             <p class="text-lg text-center my-auto">{{ $weather['wind']['speed'] }} m/s</p>
                         </div>
@@ -170,9 +170,9 @@
                     if (forecastDate.toDateString() === localDate.toDateString() && forecastLocalTime >= localTime) {
                         if (count < limit) {
                             const forecastItem = `
-                                <div class="px-4 py-2 bg-slate-600 rounded shadow grid grid-cols-4">
+                                <div class="group px-4 py-2 bg-slate-600 rounded shadow grid grid-cols-4 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 hover:bg-gray-600 duration-300">
                                     <p class="text-lg font-semibold text-center my-auto">${forecastLocalDate.getHours()}:00</p>
-                                    <img src="http://openweathermap.org/img/wn/${weather.weather[0].icon}.png" alt="${weather.weather[0].description}" class="mx-auto">
+                                    <img src="http://openweathermap.org/img/wn/${weather.weather[0].icon}.png" alt="${weather.weather[0].description}" class="mx-auto group-hover:animate-bounce">
                                     <p class="text-lg text-center my-auto">${weather.main.temp}°</p>
                                     <p class="text-lg text-center my-auto">${weather.wind.speed} m/s</p>
                                 </div>
